@@ -1,6 +1,6 @@
-var EventEmitter = require('events').EventEmitter
-var messageBus = new EventEmitter()
-messageBus.setMaxListeners(100)
+var EventEmitter = require('events').EventEmitter;
+var messageBus = new EventEmitter();
+messageBus.setMaxListeners(100);
 
 var express = require('express');
 var app = express();
@@ -22,16 +22,16 @@ app.get('/', function (req, res) {
 app.get('/messages', function (req, res) {
   var addMessageListener = function(res){
     messageBus.once('message', function(data){
-      res.json(data)
-    })
-  }
-  addMessageListener(res)
+      res.json(data);
+    });
+  };
+  addMessageListener(res);
 });
 
 app.post('/messages', function (req, res) {
-  console.log(req.body)
-  messageBus.emit('message', req.body)
-  res.status(200).end()
+  console.log(req.body);
+  messageBus.emit('message', req.body);
+  res.status(200).end();
 });
 
 var server = app.listen(3000, function () {
