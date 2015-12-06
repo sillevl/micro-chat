@@ -23,8 +23,9 @@ module.exports = function(grunt) {
       },
       dist: {
         src: [
-          "node_modules/jquery/dist/jquery.min.js",
-          "node_modules/foundation/js/foundation.min.js",
+          //"node_modules/foundation-sites/node_modules/what-input/what-input.min.js",
+          "node_modules/foundation-sites/node_modules/jquery/dist/jquery.min.js",
+          "node_modules/foundation-sites/dist/foundation.min.js",
           "src/js/chat.js"
         ],
         dest: 'public/js/chat.js',
@@ -58,8 +59,8 @@ module.exports = function(grunt) {
       },
 
       sass: {
-        files: 'scss/**/*.scss',
-        tasks: ['sass']
+        files: ['src/scss/**/*.scss', 'src/js/**/*.js'],
+        tasks: ['sass', 'concat', 'jshint']
       }
     }
   });

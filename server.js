@@ -5,6 +5,10 @@ messageBus.setMaxListeners(100)
 var express = require('express');
 var app = express();
 var exphbs  = require('express-handlebars');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -25,6 +29,7 @@ app.get('/messages', function (req, res) {
 });
 
 app.post('/messages', function (req, res) {
+  console.log(req.body)
   messageBus.emit('message', req.body)
   res.status(200).end()
 });
