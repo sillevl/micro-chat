@@ -1,0 +1,26 @@
+{
+  "name": "micro-chat",
+  "version": "0.0.1",
+  "description": "Chat example application using JavaScript and AJAX",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sillevl/micro-chat.git"
+  },
+  "keywords": [
+    "javascript",
+    "ajax",
+    "chat",
+    "example",
+    "server"
+  ],
+  "author": "Sille Van Landschoot <info@sillevl.be>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sillevl/micro-chat/issues"
+  },
+  "homepage": "https://github.com/sillevl/micro-chat#readme"
+}
