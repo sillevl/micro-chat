@@ -1,8 +1,32 @@
+var EventEmitter = require('events').EventEmitter
+var messageBus = new EventEmitter()
+messageBus.setMaxListeners(100)
+
 var express = require('express');
 var app = express();
+var exphbs  = require('express-handlebars');
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.render('index');
+});
+
+app.get('/messages', function (req, res) {
+  var addMessageListener = function(res){
+    messageBus.once('message', function(data){
+      res.json(data)
+    })
+  }
+  addMessageListener(res)
+});
+
+app.post('/messages', function (req, res) {
+  messageBus.emit('message', req.body)
+  res.status(200).end()
 });
 
 var server = app.listen(3000, function () {
