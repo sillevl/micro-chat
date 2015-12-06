@@ -26,14 +26,14 @@ module.exports = function(grunt) {
           //"node_modules/foundation-sites/node_modules/what-input/what-input.min.js",
           "node_modules/foundation-sites/node_modules/jquery/dist/jquery.min.js",
           "node_modules/foundation-sites/dist/foundation.min.js",
-          "src/js/chat.js"
+          "src/js/chat.min.js"
         ],
         dest: 'public/js/chat.js',
       },
     },
 
     jshint:{
-      files: ['Gruntfile.js', 'server.js', 'src/**/*.js', 'test/**/*.js'],
+      files: ['Gruntfile.js', 'server.js', 'src/js/chat.js', 'test/**/*.js'],
       options: {
         globals: {
           jQuery: true
@@ -62,6 +62,18 @@ module.exports = function(grunt) {
         files: ['src/scss/**/*.scss', 'src/js/**/*.js'],
         tasks: ['sass', 'concat', 'jshint']
       }
+    },
+
+    uglify: {
+      options: {
+        //mangleProperties: true,
+        reserveDOMCache: true
+      },
+      my_target: {
+        files: {
+          'src/js/chat.min.js': ['src/js/chat.js']
+        }
+      }
     }
   });
 
@@ -70,8 +82,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('test', ['mochaTest']);
-  grunt.registerTask('build', ['sass', 'concat', 'jshint', 'mochaTest']);
+  grunt.registerTask('build', ['sass', 'jshint', 'uglify', 'concat', 'mochaTest']);
   grunt.registerTask('default', ['build','watch']);
 };
